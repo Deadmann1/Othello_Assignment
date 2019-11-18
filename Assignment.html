@@ -5,54 +5,161 @@
     <title>Title</title>
 </head>
 <body>
- <div role="main"><span id="maincontent"></span><h2>[ADVANCED] Othello Assignment</h2><div id="intro" class="box generalbox boxaligncenter py-3"><div class="no-overflow"><p></p><h4><b>GERNERAL</b></h4><p><span>This semester you have to program a simple game (othello) in python3 (see here&nbsp;<u><a href="https://tc.tugraz.at/main/mod/page/view.php?id=57738">how to install python</a></u>)<br></span></p><p><span>The following list under&nbsp;<i>Assignment tasks</i>&nbsp;gives you instructions to create step by step (starting by 1 you should complete each task one by one) a playable game. We are giving you&nbsp;<span><u><a href="https://tc.tugraz.at/main/pluginfile.php/143385/mod_assign/introattachment/0/orthello_tugraz_ws2019_STUDENTID.py?forcedownload=1">a template</a></u></span>&nbsp;which could be used and gives you an easier start.&nbsp;<br></span></p><h4><b>Assignment requirements&nbsp;</b></h4><p></p><ul>The game has to be written in python3 in one single .py file. You are not allowed to execute other files or use packages within your code (basic python).</li>Submission: done in TeachCenter by &gt;&gt;latest&lt;&lt; Sunday, 1st December 2019 23:55 (MESZ).&nbsp;</li><span style="font-size: 0.9375rem;">You can not work with a partner.</span></li>
-<li>Code copied from the internet is generally not allowed and should not be required.&nbsp;<span style="font-size: 0.9375rem;">If you really have to include some foreign code, make it clearly visible which lines are from whatever source.</span></li>
-<li><span style="font-size: 0.9375rem;">Plagiarism will not be tolerated and leads to a negative course grading and an entry in TUG online.</span></li>
-<li><span style="font-size: 0.9375rem;">Your file has to start with three comment lines according to the given template file.</span></li></ul><p></p><h4><b>Assignment tasks (10 points for each first level list item)</b></h4><ol>
-<li><b>Let’s start with a stone</b></li><ol>
-<li>Look at the code provided and make yourself familiar.&nbsp;</li>
-<li>Create a function to set a stone to one field.</li>
-<li><span style="font-size: 0.9375rem;">Print the updated board to the console.</span><br></li></ol>
-<li><b>It’s your turn - keyboard time</b></li><ol>
-<li>At this point of the assignment we want to be able to play the game with our keyboard. The game should be played one player after one, so starting by asking where to put the first black stone, print the whole field to the console accordingly, asking where to put the first white, and so on.&nbsp;</li>
-<li>Coordinates are defined by row (A-H)[only upper case]&nbsp;and column (0-7), e.g. A0.&nbsp;</li>
-<li><code>PROMPT_PLAYER_1</code> and&nbsp;<code>PROMPT_PLAYER_2</code> are shown on a rotating basis depending on the current player. (see screenshots at the end of the page)&nbsp;</li></ol>
-<li><b>Error detection and handling - What can go wrong?:</b></li><ol>
-<li>Detect errors like when a player tries to occupy an already full field. What if a cat runs across your keyboard, does your game crash? Make sure the player order is fair and nobody takes two turns. Don't allow drawing outside the board.</li>
-<li><code>ERROR_INVALID_INPUT</code> must be printed if the input is not as expected<br></li>
-<li><code>ERROR_OCCUPIED</code> must be printed if the field is already full.<br></li></ol>
-<li><b>Color changing times</b></li><ol>
-<li>Have a look at https://de.wikipedia.org/wiki/Othello_(Spiel) and make yourself familiar to the game rules.</li>
-<li>If your placed stone enclose an opposing stone with one of your stones, the the opposing stone is now yours.&nbsp;</li>
-<li>Check after every time a stone is played if the new placed stone is able to change the color of an opposing stone.</li><ol>
-<li>Stones that just changed its color are not included in the enclosure rule. (else every possible stone would be turned)</li></ol></ol>
-<li><b>Rules… Rules… Rules…</b></li><ol>
-<li>The start of the game is defined by four stones in the center. Let’s start every game like that.</li>
-<li>In Othello you are only allowed to put your stone in a field next to an opposing stone (vertical, horizontal, diagonal), if you are able to change the color from minimum one opposing stone.&nbsp;</li><ol>
-<li>Check before the stone is placed, if the selected field is currently allowed.&nbsp;</li><ol>
-<li>If so, draw the stone and check for color changing events.</li>
-<li>If not, make sure the user knows it is not allowed to put the stone there and the player is able to select another field.</li></ol>
-<li>Since sometimes the player is not able to play a valid turn, enable the player to “skip” the turn.</li>
-<li>If the player want's to play an illegal field in terms of the rules, print&nbsp;<code>ERROR_NOT_ALLOWED</code>&nbsp;&nbsp;</li>
-<li>If any error occurs, the previous prompt should be asked again. (In the whole game)</li></ol></ol>
-<li><b>Winning, the Art of loosing at Loosing</b></li><ol>
-<li>If both player pass the turn (both are not able to play a valid move) or every field is set, count the stones. The player with more stones on the board wins, if they are equal it’s a draw. Make sure the player is informed the game is over and who has won (or if it’s a draw [both players have kinda lost])</li>
-<li>Statistics and won message</li><ol>
-<li>Print at the end of the game the statistics of the game in two lines (see figure)</li>
-<li>After the two statistic lines print the game result (<code>WON_PLAYER_1</code>,&nbsp;<code>WON_PLAYER_2&nbsp;</code>or&nbsp;<code>WON_DRAW</code>)</li></ol>
-<li>Exit codes</li><ol>
-<li>If player 1 has won, exit the program with exit code 1</li>
-<li>If player 2 has won, exit the program with exit code 2<br></li>
-<li>If it's a draw,&nbsp;&nbsp;exit the program with exit code 3</li>
-<li>When the player enters 'quit' the program should stop without any other print and return exit code 0. No statistics should be displayed!</li></ol></ol>
-<li><b>Oh, we have a computer</b></li><ol>
-<li>Since we play the game on a computer, let’s program a computer opponent.</li>
-<li>Start with a simple strategy, computer wants to put the stone to a random field that is allowed.</li>
-<li>Print <code>PROMPT_HUMAN_AI</code> at the beginning. If a string equal to INPUT_HUMAN is given, 2 humans are playing, if a string equal to INPUT_COMPUTER is given, player 1 is human, player 2 is the computer.&nbsp;</li><ol>
-<li>If the input is not equal to ether INPUT_HUMAN or&nbsp;INPUT_COMPUTER,&nbsp; print&nbsp;<code>ERROR_INVALID_INPUT</code> and print&nbsp;the prompt&nbsp;<code>PROMPT_HUMAN_AI</code> again.</li></ol>
-<li>Print instead of <code>PROMPT_PLAYER_2</code>&nbsp;;&nbsp;<code>PROMPT_PLAYER_AI</code> and the selected coordinates of the ai. (see screenshots at the end of the page)&nbsp;<br></li></ol>
-<li><b>Aaaaand mankind is lost, the computer takes over the world…</b></li><ol>
-<li>Analyse every field possible playing and rate how many stones are flipped in this move. The computer plays the field which flipps the most stones.</li>
-<li>If you program an ever better strategy, bonus points will be rewarded.</li></ol></ol><h4>Game images&nbsp;</h4><p>(colors may vary depending on your operating system, if you don't change the&nbsp;<code>STATIC STRINGS - DO NOT CHANGE</code> section it should be fine)</p><p>human game:</p><p><img src="human.png" alt="human game" width="293" height="862" class="img-responsive atto_image_button_text-bottom"><br></p><p>ai game:</p><p><img src="a1%202.png" alt="ai game" width="268" height="865" class="img-responsive atto_image_button_text-bottom"><br></p><p></p><p>game won</p><p><img src="won%20%281%29.png" alt="game won" width="262" height="89" class="img-responsive atto_image_button_text-bottom"><br></p></div>
+<div role="main"><span id="maincontent"></span>
+    <h2>[ADVANCED] Othello Assignment</h2>
+    <div id="intro" class="box generalbox boxaligncenter py-3">
+        <div class="no-overflow"><p></p><h4><b>GERNERAL</b></h4>
+            <p><span>This semester you have to program a simple game (othello) in python3 (see here&nbsp;<u><a
+                    href="https://tc.tugraz.at/main/mod/page/view.php?id=57738">how to install python</a></u>)<br></span>
+            </p>
+            <p><span>The following list under&nbsp;<i>Assignment tasks</i>&nbsp;gives you instructions to create step by step (starting by 1 you should complete each task one by one) a playable game. We are giving you&nbsp;<span><u><a
+                    href="https://tc.tugraz.at/main/pluginfile.php/143385/mod_assign/introattachment/0/orthello_tugraz_ws2019_STUDENTID.py?forcedownload=1">a template</a></u></span>&nbsp;which could be used and gives you an easier start.&nbsp;<br></span>
+            </p><h4><b>Assignment requirements&nbsp;</b></h4>
+            <p></p>
+            <ul>The game has to be written in python3 in one single .py file. You are not allowed to execute other files
+                or use packages within your code (basic python).</li>Submission: done in TeachCenter by &gt;&gt;latest&lt;&lt;
+                Sunday, 1st December 2019 23:55 (MESZ).&nbsp;</li><span style="font-size: 0.9375rem;">You can not work with a partner.</span></li>
+                <li>Code copied from the internet is generally not allowed and should not be required.&nbsp;<span
+                        style="font-size: 0.9375rem;">If you really have to include some foreign code, make it clearly visible which lines are from whatever source.</span>
+                </li>
+                <li><span style="font-size: 0.9375rem;">Plagiarism will not be tolerated and leads to a negative course grading and an entry in TUG online.</span>
+                </li>
+                <li><span style="font-size: 0.9375rem;">Your file has to start with three comment lines according to the given template file.</span>
+                </li>
+            </ul>
+            <p></p><h4><b>Assignment tasks (10 points for each first level list item)</b></h4>
+            <ol>
+                <li><b>Let’s start with a stone</b></li>
+                <ol>
+                    <li>Look at the code provided and make yourself familiar.&nbsp;</li>
+                    <li>Create a function to set a stone to one field.</li>
+                    <li><span style="font-size: 0.9375rem;">Print the updated board to the console.</span><br></li>
+                </ol>
+                <li><b>It’s your turn - keyboard time</b></li>
+                <ol>
+                    <li>At this point of the assignment we want to be able to play the game with our keyboard. The game
+                        should be played one player after one, so starting by asking where to put the first black stone,
+                        print the whole field to the console accordingly, asking where to put the first white, and so
+                        on.&nbsp;
+                    </li>
+                    <li>Coordinates are defined by row (A-H)[only upper case]&nbsp;and column (0-7), e.g. A0.&nbsp;</li>
+                    <li><code>PROMPT_PLAYER_1</code> and&nbsp;<code>PROMPT_PLAYER_2</code> are shown on a rotating basis
+                        depending on the current player. (see screenshots at the end of the page)&nbsp;
+                    </li>
+                </ol>
+                <li><b>Error detection and handling - What can go wrong?:</b></li>
+                <ol>
+                    <li>Detect errors like when a player tries to occupy an already full field. What if a cat runs
+                        across your keyboard, does your game crash? Make sure the player order is fair and nobody takes
+                        two turns. Don't allow drawing outside the board.
+                    </li>
+                    <li><code>ERROR_INVALID_INPUT</code> must be printed if the input is not as expected<br></li>
+                    <li><code>ERROR_OCCUPIED</code> must be printed if the field is already full.<br></li>
+                </ol>
+                <li><b>Color changing times</b></li>
+                <ol>
+                    <li>Have a look at https://de.wikipedia.org/wiki/Othello_(Spiel) and make yourself familiar to the
+                        game rules.
+                    </li>
+                    <li>If your placed stone enclose an opposing stone with one of your stones, the the opposing stone
+                        is now yours.&nbsp;
+                    </li>
+                    <li>Check after every time a stone is played if the new placed stone is able to change the color of
+                        an opposing stone.
+                    </li>
+                    <ol>
+                        <li>Stones that just changed its color are not included in the enclosure rule. (else every
+                            possible stone would be turned)
+                        </li>
+                    </ol>
+                </ol>
+                <li><b>Rules… Rules… Rules…</b></li>
+                <ol>
+                    <li>The start of the game is defined by four stones in the center. Let’s start every game like
+                        that.
+                    </li>
+                    <li>In Othello you are only allowed to put your stone in a field next to an opposing stone
+                        (vertical, horizontal, diagonal), if you are able to change the color from minimum one opposing
+                        stone.&nbsp;
+                    </li>
+                    <ol>
+                        <li>Check before the stone is placed, if the selected field is currently allowed.&nbsp;</li>
+                        <ol>
+                            <li>If so, draw the stone and check for color changing events.</li>
+                            <li>If not, make sure the user knows it is not allowed to put the stone there and the player
+                                is able to select another field.
+                            </li>
+                        </ol>
+                        <li>Since sometimes the player is not able to play a valid turn, enable the player to “skip” the
+                            turn.
+                        </li>
+                        <li>If the player want's to play an illegal field in terms of the rules, print&nbsp;<code>ERROR_NOT_ALLOWED</code>&nbsp;&nbsp;
+                        </li>
+                        <li>If any error occurs, the previous prompt should be asked again. (In the whole game)</li>
+                    </ol>
+                </ol>
+                <li><b>Winning, the Art of loosing at Loosing</b></li>
+                <ol>
+                    <li>If both player pass the turn (both are not able to play a valid move) or every field is set,
+                        count the stones. The player with more stones on the board wins, if they are equal it’s a draw.
+                        Make sure the player is informed the game is over and who has won (or if it’s a draw [both
+                        players have kinda lost])
+                    </li>
+                    <li>Statistics and won message</li>
+                    <ol>
+                        <li>Print at the end of the game the statistics of the game in two lines (see figure)</li>
+                        <li>After the two statistic lines print the game result (<code>WON_PLAYER_1</code>,&nbsp;<code>WON_PLAYER_2&nbsp;</code>or&nbsp;<code>WON_DRAW</code>)
+                        </li>
+                    </ol>
+                    <li>Exit codes</li>
+                    <ol>
+                        <li>If player 1 has won, exit the program with exit code 1</li>
+                        <li>If player 2 has won, exit the program with exit code 2<br></li>
+                        <li>If it's a draw,&nbsp;&nbsp;exit the program with exit code 3</li>
+                        <li>When the player enters 'quit' the program should stop without any other print and return
+                            exit code 0. No statistics should be displayed!
+                        </li>
+                    </ol>
+                </ol>
+                <li><b>Oh, we have a computer</b></li>
+                <ol>
+                    <li>Since we play the game on a computer, let’s program a computer opponent.</li>
+                    <li>Start with a simple strategy, computer wants to put the stone to a random field that is
+                        allowed.
+                    </li>
+                    <li>Print <code>PROMPT_HUMAN_AI</code> at the beginning. If a string equal to INPUT_HUMAN is given,
+                        2 humans are playing, if a string equal to INPUT_COMPUTER is given, player 1 is human, player 2
+                        is the computer.&nbsp;
+                    </li>
+                    <ol>
+                        <li>If the input is not equal to ether INPUT_HUMAN or&nbsp;INPUT_COMPUTER,&nbsp;
+                            print&nbsp;<code>ERROR_INVALID_INPUT</code> and print&nbsp;the prompt&nbsp;<code>PROMPT_HUMAN_AI</code>
+                            again.
+                        </li>
+                    </ol>
+                    <li>Print instead of <code>PROMPT_PLAYER_2</code>&nbsp;;&nbsp;<code>PROMPT_PLAYER_AI</code> and the
+                        selected coordinates of the ai. (see screenshots at the end of the page)&nbsp;<br></li>
+                </ol>
+                <li><b>Aaaaand mankind is lost, the computer takes over the world…</b></li>
+                <ol>
+                    <li>Analyse every field possible playing and rate how many stones are flipped in this move. The
+                        computer plays the field which flipps the most stones.
+                    </li>
+                    <li>If you program an ever better strategy, bonus points will be rewarded.</li>
+                </ol>
+            </ol>
+            <h4>Game images&nbsp;</h4>
+            <p>(colors may vary depending on your operating system, if you don't change the&nbsp;<code>STATIC STRINGS -
+                DO NOT CHANGE</code> section it should be fine)</p>
+            <p>human game:</p>
+            <p><img src="human.png" alt="human game" width="293" height="862"
+                    class="img-responsive atto_image_button_text-bottom"><br></p>
+            <p>ai game:</p>
+            <p><img src="a1%202.png" alt="ai game" width="268" height="865"
+                    class="img-responsive atto_image_button_text-bottom"><br></p>
+            <p></p>
+            <p>game won</p>
+            <p><img src="won%20%281%29.png" alt="game won" width="262" height="89"
+                    class="img-responsive atto_image_button_text-bottom"><br></p></div>
 </body>
 </html>
